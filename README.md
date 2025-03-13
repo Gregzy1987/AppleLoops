@@ -21,3 +21,7 @@ To use:
 
 ## Caveats
 - Don't open the app until after you have installed the loops as the loops may not register correctly
+
+## Important
+If nothing is specified in Parameter 4 through Jamf, this will use the default as garageband1047 logicpro1110 mainstage362 to prevent the tmp folder from being deleted.
+A check happens between line 41 - 47 to exit if the variable is empty.
