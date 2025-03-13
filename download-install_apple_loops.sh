@@ -5,6 +5,11 @@
 # Shannon Pasto https://github.com/shannonpasto/AppleLoops
 #
 # v1.2.3 (21/01/2025)
+#
+###################
+# Updated: 13/03/2025 by Dan Gregory
+# Changes: Added an exit if Parameter 4 is not defined to prevent the tmp folder from getting deleted
+# Location: Line 41 - 47
 ###################
 
 ## uncomment the next line to output debugging to stdout
@@ -16,7 +21,7 @@
 ME=$(basename "$0")
 # shellcheck disable=SC2034
 BINPATH=$(dirname "$0")
-appPlist=""  # garageband1047 logicpro1110 mainstage362. multiple plists can be specified, separate with a space
+appPlist="$4"  # garageband1047 logicpro1110 mainstage362. multiple plists can be specified, separate with a space
 
 ###############################################################################
 ## function declarations
@@ -33,12 +38,12 @@ exit_trap() {
 ## start the script here
 trap exit_trap EXIT
 
-# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 4 AND, IF SO, ASSIGN TO "appPlist"
-if [ "${4}" != "" ] && [ "${appPlist}" = "" ]; then
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 4, EXIT IF NOT
+if [ "${appPlist}" == "" ]; then
+  /bin/echo "Parameter 4 NOT configured... exiting"
+  exit 1
+elif [ "${appPlist}" != "" ]; then
   /bin/echo "Parameter 4 configured"
-  appPlist="${4}"
-elif [ "${4}" != "" ] || [ "${appPlist}" != "" ]; then
-  /bin/echo "Parameter 4 overwritten by script variable"
 fi
 
 tmpDir="/tmp/${appPlist}"
