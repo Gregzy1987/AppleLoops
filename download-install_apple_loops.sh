@@ -21,7 +21,7 @@
 ME=$(basename "$0")
 # shellcheck disable=SC2034
 BINPATH=$(dirname "$0")
-appPlist="$4"  # garageband1047 logicpro1110 mainstage362. multiple plists can be specified, separate with a space
+appPlist="${4:-"garageband1047 logicpro1110 mainstage362"}" # [ garageband1047 logicpro1110 mainstage362 (default) ]  multiple plists can be specified, separate with a space
 
 ###############################################################################
 ## function declarations
@@ -44,6 +44,7 @@ if [ "${appPlist}" == "" ]; then
   exit 1
 elif [ "${appPlist}" != "" ]; then
   /bin/echo "Parameter 4 configured"
+  /bin/echo "Parameter 4 is set to: $applist"
 fi
 
 tmpDir="/tmp/${appPlist}"
